@@ -10,15 +10,15 @@
         text-color="#fff"
         active-text-color="#409EFF"
       >
-        <el-menu-item index="1">
+        <el-menu-item index="1" @click="goHome">
           <i class="el-icon-menu"></i>
           <span slot="title">首页</span>
         </el-menu-item>
-        <el-menu-item index="2">
+        <el-menu-item index="2" @click="goContent">
           <i class="el-icon-document"></i>
           <span slot="title">内容管理</span>
         </el-menu-item>
-        <el-menu-item index="3">
+        <el-menu-item index="3" @click="goPicture">
           <i class="el-icon-picture-outline"></i>
           <span slot="title">素材管理</span>
         </el-menu-item>
@@ -72,8 +72,16 @@ export default {
   },
   methods: {
     toggleMenu () {
-      console.log(123)
       this.isCollapse = !this.isCollapse
+    },
+    goHome () {
+      this.$router.push('/')
+    },
+    goContent () {
+      this.$router.push('/content')
+    },
+    goPicture () {
+      this.$router.push('/picture')
     }
   }
 }

@@ -36,8 +36,8 @@ export default {
     }
     return {
       formLogin: {
-        mobile: '',
-        code: ''
+        mobile: '17635373547',
+        code: '246810'
       },
       loginRules: {
         mobile: [
