@@ -1,58 +1,61 @@
 <template>
   <div>
     <el-card class="box-card card-header">
-      <div slot="header" class="clearfix">
-        <el-link :underline="false" @click="goWelcome">首页</el-link>
-        <span class="el-icon-arrow-right"></span>
-        <span class="content">内容管理</span>
+      <div slot="header">
+        <el-breadcrumb separator-class="el-icon-arrow-right">
+          <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+          <el-breadcrumb-item>内容管理</el-breadcrumb-item>
+        </el-breadcrumb>
       </div>
       <div class="text item">
-        <el-form>
+        <el-form label-width="80px" size="small">
           <el-form-item label="状态 :">
-            <el-radio-group v-model="form.resource">
-              <el-radio label="全部"></el-radio>
-              <el-radio label="草稿"></el-radio>
-              <el-radio label="待审核"></el-radio>
-              <el-radio label="审核通过"></el-radio>
-              <el-radio label="审核失败"></el-radio>
+            <el-radio-group v-model="form.status">
+              <el-radio :label="null">全部</el-radio>
+              <el-radio :label="0">草稿</el-radio>
+              <el-radio :label="1">待审核</el-radio>
+              <el-radio :label="2">审核通过</el-radio>
+              <el-radio :label="3">审核失败</el-radio>
             </el-radio-group>
           </el-form-item>
           <el-form-item label="频道 :">
-            <el-select v-model="value" placeholder="请选择">
+            <el-select placeholder="请选择" v-model="value">
               <el-option
-                v-for="item in options"
                 :key="item.value"
                 :label="item.label"
                 :value="item.value"
+                v-for="item in options"
               ></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="日期 :">
             <div class="block">
               <el-date-picker
-                v-model="value1"
-                type="daterange"
+                end-placeholder="结束日期"
                 range-separator="至"
                 start-placeholder="开始日期"
-                end-placeholder="结束日期"
+                type="daterange"
+                v-model="value1"
               ></el-date-picker>
             </div>
           </el-form-item>
+          <el-form-item>
+            <el-button type="primary">筛选</el-button>
+          </el-form-item>
         </el-form>
-        <el-button type="primary">筛选</el-button>
       </div>
     </el-card>
     <el-card class="box-card">
-      <div slot="header" class="clearfix">
-        <span>根据筛选条件共查询到 53383 条结果：</span>
+      <div class="clearfix" slot="header">
+        <span>根据筛选条件共查询到 0 条结果：</span>
       </div>
       <div class="text item">
         <el-table :data="tableData" style="width: 100%">
-          <el-table-column prop="date" label="封面"></el-table-column>
-          <el-table-column prop="name" label="标题"></el-table-column>
-          <el-table-column prop="address" label="状态"></el-table-column>
-          <el-table-column prop="address" label="发布时间"></el-table-column>
-          <el-table-column prop="address" label="操作"></el-table-column>
+          <el-table-column label="封面" prop="date"></el-table-column>
+          <el-table-column label="标题" prop="name"></el-table-column>
+          <el-table-column label="状态" prop="address"></el-table-column>
+          <el-table-column label="发布时间" prop="address"></el-table-column>
+          <el-table-column label="操作" prop="address"></el-table-column>
         </el-table>
       </div>
     </el-card>
@@ -60,11 +63,12 @@
 </template>
 
 <script>
+import store from '@/store'
 export default {
   data () {
     return {
       form: {
-        resource: ''
+        status: null
       },
       options: [
         {
@@ -100,6 +104,7 @@ export default {
           label: '人工智能'
         }
       ],
+      tableData: [],
       value: '',
       value1: ''
     }
@@ -108,6 +113,11 @@ export default {
     goWelcome () {
       this.$router.push('/')
     }
+  },
+  created () {
+    this.$http.get('articles').then(res => {
+      console.log(store.getUser())
+    })
   }
 }
 </script>
@@ -115,23 +125,5 @@ export default {
 <style scoped lang="less">
 .card-header {
   margin-bottom: 20px;
-  .el-link {
-    font-weight: 700;
-    vertical-align: middle;
-  }
-  .el-icon-arrow-right {
-    padding: 0 10px;
-    vertical-align: middle;
-  }
-  .content {
-    font-size: 14px;
-    vertical-align: middle;
-  }
-  .text {
-    padding: 0 40px;
-  }
-  .el-button {
-    margin-left: 50px;
-  }
 }
 </style>

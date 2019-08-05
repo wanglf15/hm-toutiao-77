@@ -1,16 +1,16 @@
 <template>
   <div class="container">
     <el-card class="box-card">
-      <img src="../../assets/images/logo_index.png" alt />
-      <el-form ref="formLogin" :model="formLogin" :rules="loginRules" status-icon>
+      <img alt src="../../assets/images/logo_index.png" />
+      <el-form :model="formLogin" :rules="loginRules" ref="formLogin" status-icon>
         <el-form-item prop="mobile">
-          <el-input v-model="formLogin.mobile" placeholder="请输入手机号"></el-input>
+          <el-input placeholder="请输入手机号" v-model="formLogin.mobile"></el-input>
         </el-form-item>
         <el-form-item prop="code">
           <el-input
-            v-model="formLogin.code"
-            style="width:236px;margin-right:10px;"
             placeholder="请输入验证码"
+            style="width:236px;margin-right:10px;"
+            v-model="formLogin.code"
           ></el-input>
           <el-button>发送验证码</el-button>
         </el-form-item>
@@ -18,7 +18,7 @@
           <el-checkbox :value="true">我已阅读并同意用户协议和隐私条款</el-checkbox>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" style="width:100%;" @click="login">登录</el-button>
+          <el-button @click="login" style="width:100%;" type="primary">登录</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import Store from '@/store'
 export default {
   data () {
     const checkMobile = (rule, value, callback) => {
@@ -56,11 +57,11 @@ export default {
       this.$refs.formLogin.validate(valid => {
         if (valid) {
           this.$http
-            .post(
-              'http://ttapi.research.itcast.cn/mp/v1_0/authorizations',
-              this.formLogin
-            )
+            .post('/authorizations', this.formLogin)
             .then(({ data }) => {
+              // console.log(data)
+              // console.log(data)
+              Store.setUser(data.data)
               this.$router.push('/')
             })
             .catch(() => {

@@ -1,40 +1,41 @@
 <template>
   <el-container class="wrapper">
     <el-aside :width="isCollapse ? '64px' :'200px'">
-      <div class="logo" :class="{minlogo:isCollapse}"></div>
+      <div :class="{minlogo:isCollapse}" class="logo"></div>
       <el-menu
         :collapse="isCollapse"
         :collapse-transition="false"
-        default-active="1"
-        background-color="#002033"
-        text-color="#fff"
+        :default-active="$route.path"
         active-text-color="#409EFF"
+        background-color="#002033"
+        router
+        text-color="#fff"
       >
-        <el-menu-item index="1" @click="goHome">
+        <el-menu-item index="/">
           <i class="el-icon-menu"></i>
           <span slot="title">首页</span>
         </el-menu-item>
-        <el-menu-item index="2" @click="goContent">
+        <el-menu-item index="/content">
           <i class="el-icon-document"></i>
           <span slot="title">内容管理</span>
         </el-menu-item>
-        <el-menu-item index="3" @click="goPicture">
+        <el-menu-item index="/picture">
           <i class="el-icon-picture-outline"></i>
           <span slot="title">素材管理</span>
         </el-menu-item>
-        <el-menu-item index="4">
+        <el-menu-item index="/publish">
           <i class="el-icon-position"></i>
           <span slot="title">发布文章</span>
         </el-menu-item>
-        <el-menu-item index="5">
+        <el-menu-item index="/comment">
           <i class="el-icon-chat-line-square"></i>
           <span slot="title">评论管理</span>
         </el-menu-item>
-        <el-menu-item index="6">
+        <el-menu-item index="/fans">
           <i class="el-icon-present"></i>
           <span slot="title">粉丝管理</span>
         </el-menu-item>
-        <el-menu-item index="7">
+        <el-menu-item index="/setting">
           <i class="el-icon-setting"></i>
           <span slot="title">个人设置</span>
         </el-menu-item>
@@ -46,13 +47,13 @@
         <span class="txt">江苏传智播客教育科技股份有限公司</span>
         <el-dropdown>
           <span class="el-dropdown-link">
-            <img src="../../assets/images/avatar.jpg" alt />
-            黑猫警长
+            <img :src="photo" alt />
+            {{name}}
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>个人设置</el-dropdown-item>
-            <el-dropdown-item>退出登录</el-dropdown-item>
+            <el-dropdown-item @click.native="setting()" icon="el-icon-setting">个人设置</el-dropdown-item>
+            <el-dropdown-item @click.native="logout()" icon="el-icon-unlock">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </el-header>
@@ -64,24 +65,25 @@
 </template>
 
 <script>
+import store from '@/store'
 export default {
   data () {
     return {
-      isCollapse: false
+      isCollapse: false,
+      photo: '',
+      name: ''
     }
   },
   methods: {
     toggleMenu () {
       this.isCollapse = !this.isCollapse
     },
-    goHome () {
-      this.$router.push('/')
+    logout () {
+      store.clearUser()
+      this.$router.push('/login')
     },
-    goContent () {
-      this.$router.push('/content')
-    },
-    goPicture () {
-      this.$router.push('/picture')
+    setting () {
+      this.$router.push('/setting')
     }
   }
 }
@@ -104,7 +106,6 @@ export default {
     border-bottom: 1px solid #ccc;
     line-height: 60px;
     padding-right: 20px;
-    // background-color: #409eff;
     .el-icon-s-fold {
       vertical-align: middle;
       padding-right: 10px;

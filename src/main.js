@@ -8,10 +8,10 @@ import router from '@/router'
 
 import '@/style/index.less'
 
-import axios from 'axios'
+import axios from '@/api'
 Vue.prototype.$http = axios
-
-Vue.config.productionTip = false
+// 设置为开发环境或者生产环境
+Vue.config.productionTip = false // 设置为开发环境
 Vue.use(ElementUI)
 
 new Vue({
