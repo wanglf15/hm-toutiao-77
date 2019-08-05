@@ -19,12 +19,12 @@
             </el-radio-group>
           </el-form-item>
           <el-form-item label="频道 :">
-            <el-select placeholder="请选择" v-model="value">
+            <el-select placeholder="请选择" v-model="form.channel_id">
               <el-option
                 :key="item.value"
                 :label="item.label"
                 :value="item.value"
-                v-for="item in options"
+                v-for="item in channelOptions"
               ></el-option>
             </el-select>
           </el-form-item>
@@ -58,6 +58,9 @@
           <el-table-column label="操作" prop="address"></el-table-column>
         </el-table>
       </div>
+      <div style="text-align:center; margin-top:20px">
+        <el-pagination :total="1000" background layout="prev, pager, next"></el-pagination>
+      </div>
     </el-card>
   </div>
 </template>
@@ -68,45 +71,17 @@ export default {
   data () {
     return {
       form: {
-        status: null
+        status: null,
+        channel_id: null
       },
-      options: [
+      channelOptions: [
         {
           value: '选项1',
           label: '前端开发'
-        },
-        {
-          value: '选项2',
-          label: 'PHP开发'
-        },
-        {
-          value: '选项3',
-          label: '数据库'
-        },
-        {
-          value: '选项4',
-          label: '区块链'
-        },
-        {
-          value: '选项5',
-          label: '架构师'
-        },
-        {
-          value: '选项6',
-          label: '产品经理'
-        },
-        {
-          value: '选项7',
-          label: '开发者资讯'
-        },
-        {
-          value: '选项8',
-          label: '人工智能'
         }
       ],
       tableData: [],
-      value: '',
-      value1: ''
+      value1: []
     }
   },
   methods: {

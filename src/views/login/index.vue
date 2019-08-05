@@ -54,19 +54,29 @@ export default {
   },
   methods: {
     login () {
-      this.$refs.formLogin.validate(valid => {
+      this.$refs.formLogin.validate(async valid => {
         if (valid) {
-          this.$http
-            .post('/authorizations', this.formLogin)
-            .then(({ data }) => {
-              // console.log(data)
-              // console.log(data)
-              Store.setUser(data.data)
-              this.$router.push('/')
-            })
-            .catch(() => {
-              this.$message.error('手机号或验证码不正确！！！')
-            })
+          //   this.$http
+          //     .post('/authorizations', this.formLogin)
+          //     .then(({ data }) => {
+          //       // console.log(data)
+          //       // console.log(data)
+          //       Store.setUser(data.data)
+          //       this.$router.push('/')
+          //     })
+          //     .catch(() => {
+          //       this.$message.error('手机号或验证码不正确！！！')
+          //     })
+          // }
+          try {
+            const {
+              data: { data }
+            } = await this.$http.post('authorizations', this.formLogin)
+            Store.setUser(data)
+            this.$router.push('/')
+          } catch (e) {
+            this.$message.error('手机号或验证码不正确！！！')
+          }
         }
       })
     }

@@ -85,6 +85,12 @@ export default {
     setting () {
       this.$router.push('/setting')
     }
+  },
+  created () {
+    // 本地获取用户信息
+    const user = store.getUser()
+    this.name = user.name
+    this.photo = user.photo
   }
 }
 </script>
