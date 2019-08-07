@@ -43,7 +43,10 @@
     </el-aside>
     <el-container>
       <el-header>
-        <span @click="toggleMenu" class="el-icon-s-fold" style="font-size:22px"></span>
+        <el-tooltip class="item" content="点击收缩侧边栏" placement="bottom-start">
+          <span @click="toggleMenu" class="el-icon-s-fold" style="font-size:22px"></span>
+        </el-tooltip>
+
         <span class="txt">江苏传智播客教育科技股份有限公司</span>
         <el-dropdown>
           <span class="el-dropdown-link">
