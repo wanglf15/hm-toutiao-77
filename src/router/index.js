@@ -10,6 +10,7 @@ import Picture from '@/views/picture'
 import notFound from '@/views/404'
 import store from '@/store'
 import Setting from '@/views/setting'
+import Publish from '@/views/publish'
 Vue.use(VueRouter)
 const router = new VueRouter({
   // 路由规则配置
@@ -22,6 +23,7 @@ const router = new VueRouter({
         { path: '/', name: 'welcome', component: Welcome },
         { path: `/content`, name: 'content', component: Content },
         { path: '/picture', name: 'picture', component: Picture },
+        { path: '/publish', name: 'publish', component: Publish },
         { path: '/setting', name: 'setting', component: Setting }
       ]
     },

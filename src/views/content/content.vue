@@ -16,14 +16,8 @@
             </el-radio-group>
           </el-form-item>
           <el-form-item label="频道 :">
-            <el-select clearable placeholder="请选择" v-model="reqForm.channel_id">
-              <el-option
-                :key="item.id"
-                :label="item.name"
-                :value="item.id"
-                v-for="item in channelOptions"
-              ></el-option>
-            </el-select>
+            <!-- 组件的位置 -->
+            <my-channel v-model="reqForm.channel_id"></my-channel>
           </el-form-item>
           <el-form-item label="日期 :">
             <div class="block">
@@ -124,7 +118,7 @@ export default {
         page: 1,
         per_page: 20
       },
-      channelOptions: [],
+      // channelOptions: [],
       tableData: [],
       dateArr: [],
       total: 0
@@ -133,13 +127,6 @@ export default {
   methods: {
     goWelcome () {
       this.$router.push('/')
-    },
-    // 获取频道列表
-    async getchannelOptions () {
-      const {
-        data: { data }
-      } = await this.$http.get('channels')
-      this.channelOptions = data.channels
     },
     // 获取文章列表数据
     async getArticles () {
@@ -193,14 +180,14 @@ export default {
     }
   },
   // 频道清空处理
-  watch: {
-    'reqForm.channel_id': function (newVal, oldVal) {
-      if (newVal === '') this.reqForm.channel_id = null
-    }
-  },
+  // watch: {
+  //   'reqForm.channel_id': function (newVal, oldVal) {
+  //     if (newVal === '') this.reqForm.channel_id = null
+  //   }
+  // },
   created () {
     this.getArticles()
-    this.getchannelOptions()
+    // this.getchannelOptions()
   }
 }
 </script>
