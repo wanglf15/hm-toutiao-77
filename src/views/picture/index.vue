@@ -103,7 +103,7 @@ export default {
     },
     // 上传成功函数
     handleSuccess (res) {
-      console.log(res)
+      // console.log(res)
       this.imageUrl = res.data.url
       this.$message.success('亲！素材已上传成功')
       window.setTimeout(() => {
@@ -122,7 +122,7 @@ export default {
       const {
         data: { data }
       } = await this.$http.get('user/images', { params: this.reqParams })
-      console.log(data)
+      // console.log(data)
       this.images = data.results
       this.total = data.total_count
     },
