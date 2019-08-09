@@ -96,6 +96,7 @@
           @current-change="changePager"
           background
           layout="prev, pager, next"
+          v-if="total>reqForm.per_page"
         ></el-pagination>
       </div>
     </el-card>
