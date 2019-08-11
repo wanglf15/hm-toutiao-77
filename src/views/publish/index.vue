@@ -143,7 +143,10 @@ export default {
       this.articleForm = data
     },
     async update (draft) {
-      await this.$http.put(`articles?draft=${draft}`, this.articleForm)
+      await this.$http.put(
+        `articles/${this.articleId}?draft=${draft}`,
+        this.articleForm
+      )
       this.$message.success(draft ? '修改存入草稿成功' : '文章修改成功')
       this.$router.push('/content')
     }

@@ -46,7 +46,6 @@
         <el-tooltip class="item" content="点击收缩侧边栏" placement="bottom-start">
           <span @click="toggleMenu" class="el-icon-s-fold" style="font-size:22px"></span>
         </el-tooltip>
-
         <span class="txt">江苏传智播客教育科技股份有限公司</span>
         <el-dropdown>
           <span class="el-dropdown-link">
@@ -69,6 +68,7 @@
 
 <script>
 import store from '@/store'
+import eventBus from '@/components/eventBus'
 export default {
   data () {
     return {
@@ -94,6 +94,14 @@ export default {
     const user = store.getUser()
     this.name = user.name
     this.photo = user.photo
+    eventBus.$on('update', name => {
+      this.name = name
+    })
+  },
+  mounted () {
+    eventBus.$on('updatePhoto', photo => {
+      this.photo = photo
+    })
   }
 }
 </script>
